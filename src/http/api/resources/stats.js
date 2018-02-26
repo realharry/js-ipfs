@@ -41,5 +41,6 @@ exports.bw = (request, reply) => {
 
   res.pipe(output)
   reply(new Readable().wrap(output))
+    .header('content-type', 'application/json')
     .header('x-chunked-output', '1')
 }

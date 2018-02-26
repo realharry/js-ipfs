@@ -1,6 +1,7 @@
 'use strict'
 
 const print = require('../../utils').print
+const pull = require('pull-stream')
 
 module.exports = {
   command: 'bw',
@@ -27,19 +28,22 @@ module.exports = {
   },
 
   handler (argv) {
-    const stream = argv.ipfs.stats.bwReadableStream({
+    const stream = argv.ipfs.stats.bwPullStream({
       peer: argv.peer,
       proto: argv.proto,
       poll: argv.poll,
       interval: argv.interval
     })
 
-    stream.once('data', function (stats) {
-      print(`bandwidth status
-  total in: ${stats.totalIn}B
-  total out: ${stats.totalOut}B
-  rate in: ${stats.rateIn}B/s
-  rate out: ${stats.rateOut}B/s`)
-    })
+    pull(
+      stream,
+      pull.drain((chunk) => {
+        console.log(`bandwidth status
+  total in: ${chunk.totalIn}B
+  total out: ${chunk.totalOut}B
+  rate in: ${chunk.rateIn}B/s
+  rate out: ${chunk.rateOut}B/s`)
+      })
+    )
   }
 }
