@@ -8,7 +8,7 @@ const expect = chai.expect
 chai.use(dirtyChai)
 const isNode = require('detect-node')
 // const codecs = require('multicodec/src/base-table')
-const multihashing = require('multihashing')
+// const multihashing = require('multihashing')
 // const CID = require('cids')
 const IPFS = require('../../src/core')
 
