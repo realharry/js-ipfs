@@ -9,7 +9,7 @@ chai.use(dirtyChai)
 const isNode = require('detect-node')
 // const codecs = require('multicodec/src/base-table')
 const multihashing = require('multihashing')
-const CID = require('cids')
+// const CID = require('cids')
 const IPFS = require('../../src/core')
 
 // This gets replaced by `create-repo-browser.js` in the browser
@@ -36,9 +36,9 @@ describe('files cat', () => {
 
     ipfs.on('start', () => {
       let buffer = Buffer.from(content)
-      const version = 1
-      const codec = 'dag-cbor'
-      const mh = multihashing(buffer, 'sha2-256')
+      // const version = 1
+      // const codec = 'dag-cbor'
+      // const mh = multihashing(buffer, 'sha2-256')
       // cid = new CID(version, codec, mh)
       ipfs.files.add(buffer, {}, (err, filesAdded) => {
         expect(err).to.not.exist()
@@ -104,5 +104,4 @@ describe('files cat', () => {
   //     })
   //   }, 10 * 1000)
   // }).timeout(60 * 1000)
-
 })
