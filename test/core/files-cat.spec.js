@@ -1,4 +1,4 @@
-/* eslint max-nested-callbacks: ["error", 8] */
+/* eslint max-nested-callbacks: ['error', 8] */
 /* eslint-env mocha */
 'use strict'
 
@@ -9,9 +9,6 @@ chai.use(dirtyChai)
 const isNode = require('detect-node')
 // const codecs = require('multicodec/src/base-table')
 const multihashing = require('multihashing')
-
-const multiaddr = require('multiaddr')
-const multihash = require('multihashes')
 const CID = require('cids')
 const IPFS = require('../../src/core')
 
@@ -26,7 +23,7 @@ describe('files cat', () => {
   let ipfs
   let repo
   let path
-  let cid
+  // let cid
 
   beforeEach(() => {
     repo = createTempRepo()
@@ -38,15 +35,15 @@ describe('files cat', () => {
     })
 
     ipfs.on('start', () => {
-      let buffer = Buffer.from(content);
+      let buffer = Buffer.from(content)
       const version = 1
       const codec = 'dag-cbor'
       const mh = multihashing(buffer, 'sha2-256')
-      cid = new CID(version, codec, mh)
+      // cid = new CID(version, codec, mh)
       ipfs.files.add(buffer, {}, (err, filesAdded) => {
         expect(err).to.not.exist()
-        path = filesAdded[0].path;
-        console.log("Created: path = " + path)
+        path = filesAdded[0].path
+        console.log('Created: path = ' + path)
       })
     })
   })
@@ -62,7 +59,7 @@ describe('files cat', () => {
 
   it('ipfsPath = path string', (done) => {
     setTimeout(() => {
-      console.log("Reading: path = " + path)
+      console.log('Reading: path = ' + path)
       expect(path).to.exist()
       ipfs.files.cat(path, (err, data) => {
         expect(err).to.not.exist()
@@ -76,7 +73,7 @@ describe('files cat', () => {
   // Bug #1247
   // it('ipfsPath = cid buffer', (done) => {
   //   setTimeout(() => {
-  //     console.log("Reading: cid = ")
+  //     console.log('Reading: cid = ')
   //     console.log(cid)
   //     console.log(cid.buffer)
   //     expect(cid.buffer).to.exist()
@@ -93,7 +90,7 @@ describe('files cat', () => {
   // Bug #1247
   // it('ipfsPath = cid base58btc', (done) => {
   //   setTimeout(() => {
-  //     console.log("Reading: cid = ")
+  //     console.log('Reading: cid = ')
   //     console.log(cid)
   //     let base58btc = cid.toBaseEncodedString()
   //     console.log(base58btc)
